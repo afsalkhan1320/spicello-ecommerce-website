@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Sign Up | Spicello 🌶️</title>
+    <link href="css/sytle.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <style>
+        .navbar {
+            z-index: 1040 !important;
+        }
+        @media (min-width: 992px) {
+            .navbar-collapse {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top shadow-lg p-3 bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand text-uppercase text-success fw-bold fs-1" href="index.html">Spicello</a>
+            
+            <!-- Navbar Actions (Visible on all devices) -->
+            <div class="d-flex align-items-center order-lg-last ms-auto">
+                <div class="nav-auth-btn me-2">
+                    <a href="login.html"
+                        class="btn btn-success text-white rounded-circle p-2 d-inline-flex align-items-center justify-content-center"
+                        style="width: 40px; height: 40px;" title="Login / Sign Up">
+                        <i class="bi bi-person-fill fs-5"></i>
+                    </a>
+                </div>
+                <button class="navbar-toggler bg-success" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto text-uppercase">
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="index.html#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="index.html#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="products.html">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="index.html#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Auth Section -->
+    <div class="container my-auto py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-5">
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                    <!-- Branding Header -->
+                    <div class="card-header bg-success-subtle text-center py-4 border-bottom border-success-subtle">
+                        <h3 class="fw-bold mb-1 text-success-emphasis">Spicello 🌶️</h3>
+                        <small class="text-success-emphasis opacity-75 fw-medium">Welcome to your organic spice
+                            store</small>
+                    </div>
+
+                    <div class="card-body p-4 p-md-5 bg-white">
+                        <div class="tab-content" id="authTabContent">
+
+                            <!-- Sign In Form Pane -->
+                            <div class="tab-pane fade show active" id="signin-pane" role="tabpanel" tabindex="0">
+                                <h4 class="fw-bold mb-1 text-dark">Welcome Back!</h4>
+                                <p class="text-muted small mb-4">Sign in to manage your orders and cart.</p>
+                                <form onsubmit="handleSignIn(event)">
+                                    <div class="mb-3">
+                                        <label for="login-email" class="form-label fw-semibold">Email Address</label>
+                                        <input type="email" id="login-email" class="form-control form-control-lg fs-6"
+                                            placeholder="Enter Your Email Address" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between">
+                                            <label for="login-password" class="form-label fw-semibold">Password</label>
+                                            <a href="#" class="text-success small text-decoration-none"
+                                                onclick="switchAuthForm('forgot'); return false;">Forgot?</a>
+                                        </div>
+                                        <div class="input-group">
+                                            <input type="password" id="login-password"
+                                                class="form-control form-control-lg" placeholder="••••••••" required>
+                                            <button class="btn btn-outline-secondary" type="button"
+                                                onclick="togglePasswordVisibility('login-password', 'toggle-login-pass-icon')"
+                                                title="Toggle Password Visibility">
+                                                <i class="bi bi-eye-slash" id="toggle-login-pass-icon"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-check mb-4">
+                                        <input type="checkbox" class="form-check-input" id="rememberMe" checked>
+                                        <label class="form-check-label text-muted small" for="rememberMe">Remember me on
+                                            this device</label>
+                                    </div>
+                                    <button type="submit"
+                                        class="btn btn-success btn-lg w-100 py-3 fw-bold rounded-3 shadow-sm mb-3">
+                                        Sign In
+                                    </button>
+                                </form>
+
+                                <div class="text-center mt-3 pt-3 border-top">
+                                    <p class="text-muted mb-0">Don't have an account? <a href="#"
+                                            class="text-success fw-bold text-decoration-none ms-1"
+                                            onclick="switchAuthForm('signup'); return false;">Create a new account</a>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Create Account Form Pane -->
+                            <div class="tab-pane fade" id="signup-pane" role="tabpanel" tabindex="0">
+                                <h4 class="fw-bold mb-1 text-success">Join Spicello <i class="bi bi-heart-fill text-success ms-1"></i></h4>
+                                <p class="text-muted small mb-4">Join our community of food lovers and bring pure, organic flavors to your kitchen! 🌶️✨</p>
+
+                                <form onsubmit="handleSignUp(event)">
+                                    <div class="mb-3">
+                                        <label for="reg-name" class="form-label fw-semibold">Full Name</label>
+                                        <input type="text" id="reg-name" class="form-control" placeholder="Enter Your Full Name "
+                                            required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="reg-phone" class="form-label fw-semibold">Phone Number</label>
+                                        <input type="tel" id="reg-phone" class="form-control"
+                                            placeholder="Enter Your Phone Number" required pattern="[0-9]{10}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="reg-email" class="form-label fw-semibold">Email Address</label>
+                                        <input type="email" id="reg-email" class="form-control"
+                                            placeholder="Enter Your Email Address" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="reg-password" class="form-label fw-semibold">Password</label>
+                                        <div class="input-group">
+                                            <input type="password" id="reg-password"
+                                                class="form-control form-control-lg  fs-6" placeholder="At least 6 characters"
+                                                required minlength="6">
+                                            <button class="btn btn-outline-secondary" type="button"
+                                                onclick="togglePasswordVisibility('reg-password', 'toggle-reg-pass-icon')"
+                                                title="Toggle Password Visibility">
+                                                <i class="bi bi-eye-slash" id="toggle-reg-pass-icon"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <button type="submit"
+                                        class="btn btn-success btn-lg w-100 py-3 fw-bold rounded-3 shadow-sm mt-3 mb-3">
+                                        Create Account
+                                    </button>
+                                </form>
+
+                                <div class="text-center mt-3 pt-3 border-top">
+                                    <p class="text-muted mb-0">Already have an account? <a href="#"
+                                            class="text-success fw-bold text-decoration-none ms-1"
+                                            onclick="switchAuthForm('signin'); return false;">Sign In</a></p>
+                                </div>
+                            </div>
+
+                            <!-- Forgot Password Pane -->
+                            <div class="tab-pane fade" id="forgot-pane" role="tabpanel" tabindex="0">
+                                <h4 class="fw-bold mb-1 text-dark">Reset Password</h4>
+                                <p class="text-muted small mb-4">Create a new password for your account.</p>
+                                <form onsubmit="handleResetPassword(event)">
+                                    <div class="mb-3">
+                                        <label for="forgot-email" class="form-label fw-semibold">Email Address</label>
+                                        <input type="email" id="forgot-email" class="form-control"
+                                            placeholder="Enter Your Email Address" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="forgot-password" class="form-label fw-semibold">New Password</label>
+                                        <div class="input-group">
+                                            <input type="password" id="forgot-password"
+                                                class="form-control" placeholder="Minimum 6 characters" required minlength="6">
+                                            <button class="btn btn-outline-secondary" type="button"
+                                                onclick="togglePasswordVisibility('forgot-password', 'toggle-forgot-pass-icon')"
+                                                title="Toggle Password Visibility">
+                                                <i class="bi bi-eye-slash" id="toggle-forgot-pass-icon"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="forgot-confirm" class="form-label fw-semibold">Confirm New Password</label>
+                                        <div class="input-group">
+                                            <input type="password" id="forgot-confirm" class="form-control"
+                                                placeholder="••••••••" required>
+                                            <button class="btn btn-outline-secondary" type="button"
+                                                onclick="togglePasswordVisibility('forgot-confirm', 'toggle-forgot-confirm-icon')"
+                                                title="Toggle Password Visibility">
+                                                <i class="bi bi-eye-slash" id="toggle-forgot-confirm-icon"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <button type="submit"
+                                        class="btn btn-success btn-lg w-100 py-3 fw-bold rounded-3 shadow-sm mt-3 mb-3">
+                                        Reset Password
+                                    </button>
+                                </form>
+
+                                <div class="text-center mt-3 pt-3 border-top">
+                                    <p class="text-muted mb-0"><a href="#"
+                                            class="text-success fw-bold text-decoration-none"
+                                            onclick="switchAuthForm('signin'); return false;">Back to Sign In</a></p>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-auto py-3 bg-dark text-center text-muted">
+        <div class="container">
+            © 2026 Spicello. All Rights Reserved
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container position-fixed bottom-0 end-0 p-3"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+
+    <script>
+        // Helper to get all registered users
+        function getRegisteredUsers() {
+            try {
+                const stored = localStorage.getItem('spicello_users');
+                return stored ? JSON.parse(stored) : [];
+            } catch (e) {
+                console.error('Failed to parse registered users:', e);
+                return [];
+            }
+        }
+
+        // Helper to save registered users
+        function saveRegisteredUsers(users) {
+            try {
+                localStorage.setItem('spicello_users', JSON.stringify(users));
+            } catch (e) {
+                console.error('Failed to save registered users:', e);
+            }
+        }
+
+        // Seed a default user if none exists
+        document.addEventListener('DOMContentLoaded', () => {
+            const users = getRegisteredUsers();
+            if (users.length === 0) {
+                users.push({
+                    name: 'Test User',
+                    email: 'test@example.com',
+                    password: 'password123',
+                    phone: '9876543210'
+                });
+                saveRegisteredUsers(users);
+            }
+        });
+
+        function togglePasswordVisibility(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            }
+        }
+
+        function switchAuthForm(type) {
+            const signinPane = document.getElementById('signin-pane');
+            const signupPane = document.getElementById('signup-pane');
+            const forgotPane = document.getElementById('forgot-pane');
+            
+            signinPane.classList.remove('show', 'active');
+            signupPane.classList.remove('show', 'active');
+            if (forgotPane) forgotPane.classList.remove('show', 'active');
+
+            if (type === 'signup') {
+                signupPane.classList.add('show', 'active');
+            } else if (type === 'forgot') {
+                if (forgotPane) forgotPane.classList.add('show', 'active');
+            } else {
+                signinPane.classList.add('show', 'active');
+            }
+        }
+
+        function handleSignIn(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+            const password = document.getElementById('login-password').value;
+
+            const users = getRegisteredUsers();
+            const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+
+            if (!user) {
+                showToast('Account Not Found', 'No account exists with this email address. Please sign up.', 'warning');
+                return;
+            }
+
+            if (user.password !== password) {
+                showToast('Incorrect Password', 'The password you entered is incorrect. Please try again.', 'warning');
+                return;
+            }
+
+            // Success
+            setUser({ name: user.name, email: user.email, phone: user.phone });
+            showToast('Welcome back!', `Signed in successfully as ${user.name}.`);
+
+            const params = new URLSearchParams(window.location.search);
+            const redirectUrl = params.get('redirect') || 'index.html';
+            setTimeout(() => {
+                window.location.href = redirectUrl;
+            }, 1000);
+        }
+
+        function handleSignUp(e) {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const phone = document.getElementById('reg-phone').value.trim();
+            const password = document.getElementById('reg-password').value;
+
+            const users = getRegisteredUsers();
+            
+            // Check if user already exists
+            if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+                showToast('Registration Failed', 'An account with this email already exists.', 'warning');
+                return;
+            }
+
+            // Create new user
+            const newUser = { name, email, phone, password };
+            users.push(newUser);
+            saveRegisteredUsers(users);
+
+            // Log user in automatically
+            setUser({ name: name, email: email, phone: phone });
+            showToast('Account Created!', `Welcome to Spicello, ${name}!`);
+
+            const params = new URLSearchParams(window.location.search);
+            const redirectUrl = params.get('redirect') || 'index.html';
+            setTimeout(() => {
+                window.location.href = redirectUrl;
+            }, 1000);
+        }
+
+        function handleResetPassword(e) {
+            e.preventDefault();
+            const email = document.getElementById('forgot-email').value.trim();
+            const password = document.getElementById('forgot-password').value;
+            const confirm = document.getElementById('forgot-confirm').value;
+
+            if (password !== confirm) {
+                showToast('Password Mismatch', 'New password and confirm password do not match.', 'warning');
+                return;
+            }
+
+            const users = getRegisteredUsers();
+            const userIndex = users.findIndex(u => u.email.toLowerCase() === email.toLowerCase());
+
+            if (userIndex === -1) {
+                showToast('Account Not Found', 'No account is registered with this email address.', 'warning');
+                return;
+            }
+
+            // Update password
+            users[userIndex].password = password;
+            saveRegisteredUsers(users);
+
+            showToast('Success!', 'Your password has been reset successfully. Please sign in with your new password.');
+
+            setTimeout(() => {
+                switchAuthForm('signin');
+                // Clear fields
+                document.getElementById('forgot-email').value = '';
+                document.getElementById('forgot-password').value = '';
+                document.getElementById('forgot-confirm').value = '';
+            }, 1500);
+        }
+    </script>
+</body>
+
+</html>

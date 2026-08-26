@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Spicello 🌶️</title>
+    <link href="css/sytle.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <style>
+        .navbar {
+            z-index: 1040 !important;
+        }
+        @media (min-width: 992px) {
+            .navbar-collapse {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg sticky-top shadow-lg p-3 bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand text-uppercase text-success fw-bold fs-1" href="index.html">Spicello</a>
+            
+            <!-- Navbar Actions (Visible on all devices) -->
+            <div class="d-flex align-items-center order-lg-last ms-auto">
+                <div class="nav-auth-btn me-3">
+                    <a href="login.html"
+                        class="btn btn-success text-white rounded-circle p-2 d-inline-flex align-items-center justify-content-center"
+                        style="width: 40px; height: 40px;" title="Login / Sign Up">
+                        <i class="bi bi-person-fill fs-5"></i>
+                    </a>
+                </div>
+                <div class="cart-bag-container me-3 position-relative" id="cart-bag-toggle" data-bs-toggle="offcanvas"
+                    data-bs-target="#cartOffcanvas" aria-controls="cartOffcanvas" title="View Shopping Cart" style="cursor: pointer;">
+                    <i id="bag" class="bi bi-bag text-light fs-3"></i>
+                    <span id="cart-count-badge"
+                        class="badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle d-none">0</span>
+                </div>
+                <button class="navbar-toggler bg-success" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto text-uppercase">
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="index.html#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="index.html#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="products.html">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="cart.html">Cart</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="bg-dark text-white py-4 mb-4 border-top border-success border-3">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2 class="fw-bold mb-0 text-uppercase"><i class="bi bi-shield-check text-success me-2"></i>Checkout
+                    </h2>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb justify-content-md-end mb-0 bg-transparent p-0">
+                            <li class="breadcrumb-item"><a href="index.html"
+                                    class="text-success text-decoration-none">Home</a></li>
+                            <li class="breadcrumb-item"><a href="cart.html"
+                                    class="text-success text-decoration-none">Cart</a></li>
+                            <li class="breadcrumb-item active text-light" aria-current="page">Checkout</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Checkout Form & Summary Container -->
+    <div class="container mb-5">
+        <form id="checkout-form" onsubmit="handleCheckoutSubmit(event)">
+            <div class="row">
+                <!-- Shipping Section -->
+                <div class="col-lg-7 mb-4 order-2 order-lg-1">
+                    <!-- 1. Delivery Address -->
+                    <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+                        <h4 class="fw-bold mb-3 border-bottom pb-2 text-dark">
+                            <i class="bi bi-geo-alt-fill text-success me-2"></i>1. Shipping & Delivery Address
+                        </h4>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="chk-name" class="form-label fw-semibold">Full Name *</label>
+                                <input type="text" id="chk-name" class="form-control" placeholder="John Doe" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="chk-phone" class="form-label fw-semibold">Phone Number *</label>
+                                <input type="tel" id="chk-phone" class="form-control" placeholder="9876543210"
+                                    required pattern="[0-9]{10}">
+                            </div>
+                            <div class="col-12">
+                                <label for="chk-email" class="form-label fw-semibold">Email Address *</label>
+                                <input type="email" id="chk-email" class="form-control" placeholder="john@example.com"
+                                    required>
+                            </div>
+                            <div class="col-12">
+                                <label for="chk-address" class="form-label fw-semibold">Street Address *</label>
+                                <input type="text" id="chk-address" class="form-control"
+                                    placeholder="Door No., Street name, Area" required>
+                            </div>
+                            <div class="col-md-5">
+                                <label for="chk-city" class="form-label fw-semibold">City *</label>
+                                <input type="text" id="chk-city" class="form-control" placeholder="Chennai" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="chk-state" class="form-label fw-semibold">State *</label>
+                                <input type="text" id="chk-state" class="form-control" placeholder="Tamil Nadu"
+                                    required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="chk-pincode" class="form-label fw-semibold">Pincode *</label>
+                                <input type="text" id="chk-pincode" class="form-control" placeholder="600001" required
+                                    pattern="[0-9]{6}" inputmode="numeric">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Order Summary (Renders below Address on mobile/tablet, but side-by-side on desktop) -->
+                <div class="col-lg-5 mb-4 order-1 order-lg-2">
+                    <div class="card border-0 shadow-sm rounded-4 p-4 sticky-top" style="top: 100px;">
+                        <h4 class="fw-bold mb-3 border-bottom pb-2">Order Items</h4>
+
+                        <!-- Items List -->
+                        <div id="checkout-items-list" class="mb-3" style="max-height: 300px; overflow-y: auto;"></div>
+
+                        <!-- Promo Code Form -->
+                        <div class="mb-3">
+                            <label for="checkout-coupon-input" class="form-label text-muted small fw-bold">PROMO CODE</label>
+                            <div class="input-group">
+                                <input type="text" id="checkout-coupon-input" class="form-control" placeholder="Try SPICE10">
+                                <button class="btn btn-success" type="button"
+                                    onclick="applyCouponCode(document.getElementById('checkout-coupon-input').value)">Apply</button>
+                            </div>
+                            <div id="checkout-coupon-applied-badge" class="badge bg-success mt-2 p-2 d-none"></div>
+                            <small class="text-muted d-block mt-1"><i class="bi bi-info-circle me-1"></i>Use code <span
+                                    class="fw-bold text-success">SPICE10</span> for 10% discount on your first order!</small>
+                        </div>
+
+                        <hr class="my-3">
+
+                        <!-- Totals -->
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-secondary">Subtotal</span>
+                            <span class="fw-semibold" id="checkout-subtotal">Rs. 0.00</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2 text-danger d-none" id="checkout-discount-row">
+                            <span>Discount Applied</span>
+                            <span class="fw-bold" id="checkout-discount">- Rs. 0.00</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-secondary">Shipping Charge</span>
+                            <span class="fw-semibold text-success" id="checkout-shipping">FREE</span>
+                        </div>
+
+                        <hr class="my-2">
+
+                        <div class="d-flex justify-content-between fs-4 fw-bold text-dark mb-4">
+                            <span>Total Amount</span>
+                            <span class="text-success" id="checkout-total">Rs. 0.00</span>
+                        </div>
+
+                        <!-- Trust Badges -->
+                        <div class="p-3 bg-light rounded-3 border">
+                            <div class="d-flex align-items-center mb-2">
+                                <i class="bi bi-shield-lock-fill text-success fs-4 me-2"></i>
+                                <small class="fw-semibold text-dark">100% Encrypted & Safe Checkout</small>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-patch-check-fill text-success fs-4 me-2"></i>
+                                <small class="fw-semibold text-dark">Pure Organic Quality Guaranteed</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Section -->
+                <div class="col-lg-7 mb-4 order-3 order-lg-3">
+                    <!-- 2. Payment Methods -->
+                    <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+                        <h4 class="fw-bold mb-3 border-bottom pb-2 text-dark">
+                            <i class="bi bi-credit-card-2-front-fill text-success me-2"></i>2. Payment Method
+                        </h4>
+                        <div class="payment-options">
+                            <!-- Option A: UPI -->
+                            <div class="form-check p-3 border rounded-3 mb-2 payment-card">
+                                <input class="form-check-input ms-0 me-3" type="radio" name="paymentMethod" id="payUPI"
+                                    value="upi" checked onclick="togglePaymentDetails('upi')">
+                                <label class="form-check-label fw-bold d-flex align-items-center" for="payUPI">
+                                    <i class="bi bi-qr-code-scan fs-4 text-success me-2"></i> UPI / GPay / PhonePe /
+                                    Paytm
+                                </label>
+                                <div id="upi-details" class="mt-3 pt-2 border-top">
+                                    <input type="text" class="form-control"
+                                        placeholder="Enter VPA / UPI ID (e.g. name@upi)">
+                                    <small class="text-muted">You will receive a payment request on your UPI
+                                        app.</small>
+                                </div>
+                            </div>
+
+                            <!-- Option B: Credit / Debit Card -->
+                            <div class="form-check p-3 border rounded-3 mb-2 payment-card">
+                                <input class="form-check-input ms-0 me-3" type="radio" name="paymentMethod" id="payCard"
+                                    value="card" onclick="togglePaymentDetails('card')">
+                                <label class="form-check-label fw-bold d-flex align-items-center" for="payCard">
+                                    <i class="bi bi-credit-card fs-4 text-primary me-2"></i> Credit / Debit Card
+                                </label>
+                                <div id="card-details" class="mt-3 pt-2 border-top d-none">
+                                    <div class="row g-2">
+                                        <div class="col-12">
+                                            <input type="text" class="form-control"
+                                                placeholder="Card Number (16 digits)">
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="text" class="form-control" placeholder="MM / YY">
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="password" class="form-control" placeholder="CVV">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Option C: Cash on Delivery -->
+                            <div class="form-check p-3 border rounded-3 mb-2 payment-card">
+                                <input class="form-check-input ms-0 me-3" type="radio" name="paymentMethod" id="payCOD"
+                                    value="cod" onclick="togglePaymentDetails('cod')">
+                                <label class="form-check-label fw-bold d-flex align-items-center" for="payCOD">
+                                    <i class="bi bi-cash-stack fs-4 text-warning me-2"></i> Cash on Delivery (COD)
+                                </label>
+                                <div id="cod-details" class="mt-2 text-muted small d-none">
+                                    Pay in cash or UPI upon delivery.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Place Order Submit Button -->
+                    <button type="submit" id="place-order-btn"
+                        class="btn btn-success btn-lg w-100 py-3 fw-bold rounded-3 shadow">
+                        <i class="bi bi-lock-fill me-2"></i>Place Order Now
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Order Success Modal -->
+    <div class="modal fade" id="orderSuccessModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="modal-body text-center p-4 p-md-5">
+                    <div class="mb-3">
+                        <span
+                            class="bg-success text-white rounded-circle d-inline-flex align-items-center justify-content-center"
+                            style="width: 80px; height: 80px;">
+                            <i class="bi bi-check-lg display-4"></i>
+                        </span>
+                    </div>
+                    <h3 class="fw-bold text-dark mb-2">Order Placed Successfully!</h3>
+                    <p class="text-muted mb-4">Thank you for shopping with <strong>Spicello</strong>. Your order is
+                        being packed with organic goodness.</p>
+
+                    <div class="bg-light p-3 rounded-3 text-start mb-4 border">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted small">Order ID:</span>
+                            <span class="fw-bold text-dark" id="modal-order-id">#SPICE-84920</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted small">Estimated Delivery:</span>
+                            <span class="fw-semibold text-success">Within 2 - 3 Days</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted small">Deliver To:</span>
+                            <span class="fw-semibold text-dark" id="modal-deliver-name">User</span>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <a href="#" id="track-order-btn" class="btn btn-success btn-lg rounded-3 fw-bold">
+                            <i class="bi bi-geo-alt-fill me-2"></i>Track Your Order
+                        </a>
+                        <a href="index.html" class="btn btn-outline-secondary rounded-3">
+                            Back to Home Page
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-auto py-3 bg-dark text-center text-muted">
+        <div class="container">
+            © 2026 Spicello. All Rights Reserved
+        </div>
+    </footer>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container position-fixed bottom-0 end-0 p-3"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cart.js"></script>
+
+    <script>
+        // Pre-fill user data if logged in
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = getUser();
+            if (!user) {
+                alert('You must be logged in to proceed to checkout.');
+                window.location.href = 'login.html?redirect=checkout.html';
+                return;
+            }
+            const nameInput = document.getElementById('chk-name');
+            const phoneInput = document.getElementById('chk-phone');
+            const emailInput = document.getElementById('chk-email');
+            const addressInput = document.getElementById('chk-address');
+            const cityInput = document.getElementById('chk-city');
+            const pincodeInput = document.getElementById('chk-pincode');
+
+            if (nameInput && !nameInput.value) nameInput.value = user.name || '';
+            if (phoneInput && !phoneInput.value) phoneInput.value = user.phone || '';
+            if (emailInput && !emailInput.value) emailInput.value = user.email || '';
+            if (addressInput && !addressInput.value) addressInput.value = user.address || '';
+            if (cityInput && !cityInput.value) cityInput.value = user.city || '';
+            if (pincodeInput && !pincodeInput.value) pincodeInput.value = user.pincode || '';
+        });
+
+        function togglePaymentDetails(type) {
+            document.getElementById('upi-details').classList.toggle('d-none', type !== 'upi');
+            document.getElementById('card-details').classList.toggle('d-none', type !== 'card');
+            document.getElementById('cod-details').classList.toggle('d-none', type !== 'cod');
+        }
+
+        function handleCheckoutSubmit(e) {
+            e.preventDefault();
+            const cart = getCart();
+            if (cart.length === 0) {
+                showToast('Cart Empty', 'Please add items to your cart before placing an order.', 'warning');
+                return;
+            }
+
+            const user = getUser();
+            if (!user) {
+                showToast('Authentication Error', 'You must be logged in to place an order.', 'danger');
+                return;
+            }
+
+            const name = document.getElementById('chk-name').value;
+            const orderId = '#SPICE-' + Math.floor(10000 + Math.random() * 90000);
+
+            document.getElementById('modal-order-id').textContent = orderId;
+            document.getElementById('modal-deliver-name').textContent = name;
+
+            const userEmailKey = user.email.toLowerCase();
+
+            // Get Form details to save order details
+            const orderData = {
+                id: orderId,
+                items: cart,
+                totals: getCartTotals(),
+                deliverTo: name,
+                email: document.getElementById('chk-email').value,
+                userEmail: userEmailKey,
+                address: document.getElementById('chk-address').value,
+                city: document.getElementById('chk-city').value,
+                zip: document.getElementById('chk-pincode').value,
+                phone: document.getElementById('chk-phone').value,
+                date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+            };
+            localStorage.setItem('spicello_last_order', JSON.stringify(orderData));
+
+            // Save to persistent order history
+            let orderHistory = [];
+            try {
+                const storedHistory = localStorage.getItem('spicello_order_history');
+                orderHistory = storedHistory ? JSON.parse(storedHistory) : [];
+            } catch (e) {
+                console.error('Failed to parse order history:', e);
+            }
+            orderHistory.unshift(orderData); // Add new order to the beginning of the list
+            localStorage.setItem('spicello_order_history', JSON.stringify(orderHistory));
+
+            // Also save to user-specific history
+            let userOrderHistory = [];
+            const userHistoryKey = `spicello_order_history_${userEmailKey}`;
+            try {
+                const storedUserHistory = localStorage.getItem(userHistoryKey);
+                userOrderHistory = storedUserHistory ? JSON.parse(storedUserHistory) : [];
+            } catch (e) {
+                console.error('Failed to parse user order history:', e);
+            }
+            userOrderHistory.unshift(orderData);
+            localStorage.setItem(userHistoryKey, JSON.stringify(userOrderHistory));
+
+            // Set Track Order button dynamic link
+            document.getElementById('track-order-btn').href = `track.html?id=${orderId.replace('#', '')}`;
+
+            // Clear cart from localStorage and reset bag badge/UI immediately after order completion
+            saveCart([]);
+            setAppliedCoupon(null);
+
+            // Open Modal
+            const modalEl = document.getElementById('orderSuccessModal');
+            const bsModal = new bootstrap.Modal(modalEl);
+            bsModal.show();
+        }
+    </script>
+</body>
+
+</html>
