@@ -422,7 +422,7 @@ footer {
   }
 }
 
-@media (min-width: 320px) and (max-width: 475px) {
+@media (min-width: 320px) and (max-width: 480px) {
   .navbar .container-fluid {
     position: relative;
     display: flex;
@@ -434,7 +434,7 @@ footer {
     position: absolute;
     left: 50%;
     transform: translate(-50%, -50%) !important;
-    top: 50%;
+    top: 20px !important; /* Center vertically inside container-fluid (40px high) */
     margin: 0 !important;
     font-size: 1.25rem !important;
     letter-spacing: 1px !important;
@@ -444,7 +444,7 @@ footer {
   .navbar-toggler {
     position: absolute;
     left: 12px;
-    top: 50%;
+    top: 20px !important; /* Center vertically inside container-fluid (40px high) */
     transform: translateY(-50%) !important;
     padding: 0.25rem 0.5rem !important;
     font-size: 0.95rem !important;
@@ -464,6 +464,11 @@ footer {
 
   .cart-bag-container {
     margin-right: 0 !important;
+  }
+
+  /* Offset the collapse menu so it doesn't overlap or sit too close to the header row toggler */
+  .navbar .navbar-collapse {
+    margin-top: 1.5rem !important;
   }
 }
 
